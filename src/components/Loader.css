@@ -1,0 +1,36 @@
+/* components/Loader.css */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly more opaque background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999; /* Ensure it’s on top of other content */
+  }
+  
+  .loader {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px; /* Increase width for larger loader */
+    height: 100px; /* Increase height for larger loader */
+  }
+  
+  .emoji {
+    font-size: 3rem; /* Larger emoji */
+    animation: laugh 2s infinite; /* Slow down the animation */
+  }
+  
+  @keyframes laugh {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-30px); /* Increased bounce height */
+    }
+  }
+  
