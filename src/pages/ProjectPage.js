@@ -18,7 +18,7 @@ const ProjectPage = () => {
       link: 'https://evesecure.vercel.app/login', 
       desc: 'The safety app that’s like having a digital knight in shining armor—minus the armor. 🛡️🚀',
       isUnderConstruction: true, // Indicates the project is under construction
-      alphaLink: 'https://evesecure.vercel.app/' // Link to the alpha version
+      alphaLink: 'https://evesecure.vercel.app/login' // Link to the alpha version
     },
   ];
 
@@ -103,22 +103,22 @@ const ProjectPage = () => {
       )}
 
       {showError && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="text-white text-center p-6 bg-gray-800 rounded-lg">
-            <h2 className="text-3xl">Oops! 🏗️</h2>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
+          <div className="text-white text-center p-6 bg-gray-800 rounded-lg shadow-lg">
+            <h2 className="text-3xl font-bold text-red-500">Oops! Something Went Wrong! 😬</h2>
             <p className="mt-4 text-xl">EveSecure is still under construction. 🚧</p>
-            <p className="mt-2 text-gray-400 italic">Please come back later. In the meantime, maybe grab a coffee? ☕</p>
+            <p className="mt-2 text-gray-400">Our Coders are hard at work. In the meantime, check out the alpha version! 🛠️</p>
             <button
               onClick={handleViewAlphaClick}
-              className="mt-4 bg-blue-500 text-white rounded-full px-3 py-1"
+              className="mt-4 bg-blue-500 text-white rounded-full px-4 py-2 font-semibold"
             >
               View Alpha Version 🌟
             </button>
             <button
               onClick={handleClosePreview}
-              className="mt-4 bg-red-500 text-white rounded-full px-3 py-1"
+              className="mt-4 bg-red-500 text-white rounded-full px-4 py-2 font-semibold"
             >
-              Close me before I eat your battery! ⚡
+              Close (Before It Eats Your Battery!) ⚡
             </button>
           </div>
         </div>
