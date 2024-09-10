@@ -1,0 +1,82 @@
+.project-page {
+    padding: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  .project-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .project-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .project-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .visit-btn {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .visit-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .iphone-frame {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 390px;
+    height: 844px;
+    background-image: url('/public/phone_14_01.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .iphone-content {
+    width: 90%;
+    height: 90%;
+    position: relative;
+  }
+  
+  .iframe-preview {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 20px;
+  }
+  
+  .iphone-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #555;
+    font-style: italic;
+    z-index: 1;
+  }
+  

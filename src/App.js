@@ -45,7 +45,7 @@ const App = () => {
           <Loader />
         ) : (
           <Suspense fallback={<Loader />}>
-            <Routes>
+            <Routes location={location} key={location.pathname}>
               <Route path="/" element={<HomePage />} />
               <Route path="/projects" element={<ProjectPage />} />
               <Route path="/timeline" element={<TimelinePage />} />

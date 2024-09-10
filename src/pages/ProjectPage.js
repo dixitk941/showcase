@@ -1,172 +1,83 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import { Card, CardContent, Typography, CardMedia } from '@mui/material';
+import React, { useState } from 'react';
 
-const HomePage = () => {
+const ProjectPage = () => {
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const projects = [
+    { name: 'GENZ Notes', link: 'https://genznotes.vercel.app/', desc: 'An app so smart, it might just take notes for you while you take a nap. 📚💤' },
+    { name: 'GENZ Connect', link: 'https://genzconnectt.vercel.app/', desc: 'Social networking with a Gen Z twist—because emojis and memes are a language of their own. 😎📱' },
+    { name: 'Independence Timeline', link: 'https://india-independence-timeline.vercel.app/', desc: 'A timeline that’s as epic as India’s journey—minus the historical homework. 🇮🇳📅' },
+    { name: 'Krishna Janmashtami', link: 'https://krishna-janmashtami.vercel.app/', desc: 'Celebrate Krishna Janmashtami like never before—virtually, but with extra laddoos! 🪔🎉' },
+    { name: 'MentorConnect', link: 'https://mentorconnectt.vercel.app/', desc: 'Mentorship made easy—because everyone needs a wise Yoda in their corner. 🧙‍♂️✨' },
+    { name: 'EveSecure', link: 'https://evesecure.vercel.app/login', desc: 'The safety app that’s like having a digital knight in shining armor—minus the armor. 🛡️🚀' },
+  ];
+
+  const handleCardClick = (index) => {
+    setActiveIndex(index);
+    setIsLoading(true);
+    setTimeout(() => setIsLoading(false), 1500); // Simulate a short loading delay
+  };
+
+  const handleClosePreview = () => {
+    setActiveIndex(null);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-r from-yellow-400 via-green-400 to-blue-400 animate-gradient-x">
-      {/* Hero Section */}
-      <div className="text-center pt-16 pb-10 px-4">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white animate-fade-in">
-          🚀 Welcome to the 60-Day Code Frenzy! 😅
-        </h1>
-        <p className="text-lg sm:text-xl md:text-2xl mt-6 text-gray-200 animate-fade-in">
-          Dive into the highlights of my coding journey! 🎢💻
-        </p>
-        <Button
-          component={Link}
-          to="/projects"
-          variant="contained"
-          color="secondary"
-          className="mt-8 py-3 px-6 rounded-full shadow-lg hover:bg-green-600 transition-transform duration-500 ease-in-out transform hover:scale-110"
-        >
-          Explore More Projects 😜
-        </Button>
-      </div>
-
-      {/* Project Previews Section */}
-      <div className="container mx-auto mt-16 px-4">
-        <h2 className="text-3xl font-bold text-white mb-8 text-center">Project Previews 🎨</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <ProjectPreview key={project.name} {...project} />
-          ))}
-        </div>
-      </div>
-
-      {/* What I Learned Section */}
-      <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 py-16 mt-16 rounded-lg shadow-lg">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-extrabold text-white mb-8 text-center">
-            What I Learned in 60 Days 🧠✨
-          </h2>
-          <div className="flex flex-wrap justify-center">
-            {learningOutcomes.map((item, index) => (
-              <div key={index} className="bg-white p-6 m-4 rounded-lg shadow-lg max-w-xs flex flex-col items-center transform transition-transform duration-300 ease-in-out hover:scale-105">
-                <div className="text-4xl mb-4">{emojis[index]}</div>
-                <Typography variant="h6" component="h3" className="text-xl font-semibold text-gray-800 mb-2">
-                  Learning {index + 1}
-                </Typography>
-                <Typography variant="body2" className="text-gray-600 text-center">
-                  {item}
-                </Typography>
-              </div>
-            ))}
+    <div className="min-h-screen bg-gray-100 p-6 sm:p-10">
+      <h1 className="text-4xl font-bold text-center mb-12">Prepare to Be Wowed! 🤯🚀</h1>
+      <p className="text-center text-gray-600 mb-8">Click a project, and watch it magically appear inside an iPhone. Because, who doesn't love tiny phones? 📱✨</p>
+      
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            onClick={() => handleCardClick(index)}
+            className="cursor-pointer relative bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105"
+          >
+            <div className="p-6">
+              <h3 className="text-2xl font-semibold mb-2">{project.name} 🚀</h3>
+              <p className="text-gray-600 mb-4">{project.desc}</p>
+              <p className="text-sm italic text-blue-500">Psst! Click me for a surprise. 😉</p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
 
-      {/* Challenges Section */}
-      <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 py-16 mt-16 rounded-lg shadow-lg">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-extrabold text-white mb-8 text-center">
-            The Rollercoaster of Challenges 🎢
-          </h2>
-          <div className="flex flex-wrap justify-center">
-            {challenges.map((challenge, index) => (
-              <div key={index} className="bg-white p-6 m-4 rounded-lg shadow-lg max-w-xs flex flex-col items-center">
-                <div className="text-4xl mb-4">{challenge.emoji}</div>
-                <Typography variant="h6" component="h3" className="text-xl font-semibold text-gray-800 mb-2">
-                  Challenge {index + 1}
-                </Typography>
-                <Typography variant="body2" className="text-gray-600 text-center">
-                  {challenge.description}
-                </Typography>
-              </div>
-            ))}
-          </div>
+      {activeIndex !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          {isLoading ? (
+            <div className="text-white text-lg">
+              <p>Loading iPhone...</p>
+              <p className="mt-2 text-gray-300 italic">Just hold on, Apple is updating their terms of service. 📱⌛</p>
+            </div>
+          ) : (
+            <div className="relative w-[375px] h-[812px] bg-black rounded-[40px] overflow-hidden shadow-xl">
+              {/* iPhone Notch */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-black rounded-b-xl w-36 h-6 z-10"></div>
+
+              {/* iPhone Frame (with iframe preview) */}
+              <iframe
+                src={projects[activeIndex].link}
+                title={projects[activeIndex].name}
+                className="w-full h-full rounded-[30px]"
+                frameBorder="0"
+                allowFullScreen
+              ></iframe>
+
+              {/* Close button with humor */}
+              <button
+                onClick={handleClosePreview}
+                className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-3 py-1 z-20"
+              >
+                Close me before I eat your battery! ⚡
+              </button>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 };
 
-const projects = [
-  { name: "MentorConnect", link: "https://mentorconnectt.vercel.app/", video: "https://firebasestorage.googleapis.com/v0/b/notesapp-dixitk941.appspot.com/o/mentor.mp4?alt=media&token=779afb05-4b0a-4d2b-96a8-dfff9378f250", details: "MentorConnect is the ultimate platform to connect with mentors, exchange knowledge, and grow your skills. It's like having a personal guru, minus the incense! 🧘‍♂️" },
-  { name: "EveSecure", link: "https://evesecure.vercel.app/login", video: "https://firebasestorage.googleapis.com/v0/b/notesapp-dixitk941.appspot.com/o/evesecure.mp4?alt=media&token=74c0a5ac-6012-4eba-a743-2d055b4525de", details: "EveSecure is under construction but promises to be the fortress of digital safety. It's like having a digital bodyguard that never sleeps! 💪" },
-];
-
-const ProjectPreview = ({ name, link, video, details }) => {
-  return (
-    <a href={link} target="_blank" rel="noopener noreferrer">
-      <Card 
-        className="relative bg-white shadow-2xl rounded-lg overflow-hidden transform transition-transform duration-500 ease-in-out hover:scale-105"
-        style={{ width: '100%', maxWidth: '100%', height: '500px' }}
-      >
-        <CardMedia
-          component="video"
-          alt={name}
-          height="100%"
-          image={video}
-          title={name}
-          className="transition-transform duration-500"
-          controls
-        />
-        <CardContent className="p-4 text-center flex flex-col justify-between h-full">
-          <div>
-            <Typography variant="h6" component="h3" className="text-xl font-bold text-black">
-              {name} 🎉
-            </Typography>
-            <Typography variant="body2" className="text-gray-600 mt-2">
-              {details}
-            </Typography>
-          </div>
-          <Button
-            component="a"
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="contained"
-            color="secondary"
-            className="mt-4 py-2 px-4 rounded-full shadow-lg hover:bg-green-600 transition-transform duration-300 ease-in-out transform hover:scale-105"
-          >
-            Take a Peek! 👀
-          </Button>
-        </CardContent>
-      </Card>
-    </a>
-  );
-};
-
-const learningOutcomes = [
-  "Mastered advanced React concepts and hooks.",
-  "Enhanced skills in responsive design and cross-browser compatibility.",
-  "Gained experience in using Firebase for backend services.",
-  "Improved project management and team collaboration.",
-  "Learned to implement user authentication and authorization.",
-  "Developed a deeper understanding of UI/UX principles and best practices.",
-  "Enhanced problem-solving skills and debugging techniques.",
-  "Gained practical experience in deploying and maintaining web applications.",
-  "Improved ability to adapt to new technologies and frameworks.",
-  "Gained confidence in presenting and showcasing projects effectively."
-];
-
-const emojis = [
-  "🧠", // Brain for mastering concepts
-  "📱", // Phone for responsive design
-  "🔥", // Fire for Firebase experience
-  "🤝", // Handshake for collaboration
-  "🔒", // Lock for authentication
-  "🎨", // Art for UI/UX principles
-  "🕵️‍♂️", // Detective for problem-solving
-  "🚀", // Rocket for deploying applications
-  "💡", // Lightbulb for adapting to new technologies
-  "🎤" // Microphone for confidence in presenting
-];
-
-const challenges = [
-  { emoji: "😵", description: "Navigating through complex state management issues that made me question my sanity!" },
-  { emoji: "🔧", description: "Debugging hours of code to fix those elusive bugs that seemed to appear out of nowhere." },
-  { emoji: "🔥", description: "Handling performance bottlenecks and optimizing code to improve load times." },
-  { emoji: "⚡", description: "Managing project timelines and balancing multiple tasks while staying sane." },
-  { emoji: "💥", description: "Dealing with unexpected technical glitches during crucial development phases." },
-  { emoji: "🕰️", description: "Time management challenges, especially when juggling between learning and implementation." },
-  { emoji: "💣", description: "Overcoming deployment issues and ensuring the app works seamlessly across different environments." },
-  { emoji: "🌪️", description: "Adjusting to changing requirements and adapting the project scope dynamically." },
-  { emoji: "🏔️", description: "Facing moments of frustration that felt like climbing a mountain." },
-  { emoji: "💬", description: "Communicating effectively with team members and handling feedback like a pro." },
-  { emoji: "🙈", description: "Facing imposter syndrome and pushing through moments of self-doubt and uncertainty." }
-];
-
-export default HomePage;
+export default ProjectPage;
