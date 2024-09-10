@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 const ProjectPage = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [showAlpha, setShowAlpha] = useState(false); // State to manage alpha version display
+  const [iframeSrc, setIframeSrc] = useState('');
 
   const projects = [
     { name: 'GENZ Notes', link: 'https://genznotes.vercel.app/', desc: 'An app so smart, it might just take notes for you while you take a nap. 📚💤' },
@@ -10,17 +13,39 @@ const ProjectPage = () => {
     { name: 'Independence Timeline', link: 'https://india-independence-timeline.vercel.app/', desc: 'A timeline that’s as epic as India’s journey—minus the historical homework. 🇮🇳📅' },
     { name: 'Krishna Janmashtami', link: 'https://krishna-janmashtami.vercel.app/', desc: 'Celebrate Krishna Janmashtami like never before—virtually, but with extra laddoos! 🪔🎉' },
     { name: 'MentorConnect', link: 'https://mentorconnectt.vercel.app/', desc: 'Mentorship made easy—because everyone needs a wise Yoda in their corner. 🧙‍♂️✨' },
-    { name: 'EveSecure', link: 'https://evesecure.vercel.app/login', desc: 'The safety app that’s like having a digital knight in shining armor—minus the armor. 🛡️🚀' },
+    { 
+      name: 'EveSecure', 
+      link: 'https://evesecure.vercel.app/login', 
+      desc: 'The safety app that’s like having a digital knight in shining armor—minus the armor. 🛡️🚀',
+      isUnderConstruction: true, // Indicates the project is under construction
+      alphaLink: 'https://evesecure.vercel.app/' // Link to the alpha version
+    },
   ];
 
   const handleCardClick = (index) => {
-    setActiveIndex(index);
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 1500); // Simulate a short loading delay
+    const project = projects[index];
+    if (project.isUnderConstruction) {
+      setShowError(true);
+      setIframeSrc(''); // Reset iframe source
+      setShowAlpha(false); // Ensure alpha version isn't shown initially
+    } else {
+      setActiveIndex(index);
+      setIsLoading(true);
+      setTimeout(() => setIsLoading(false), 1500); // Simulate a short loading delay
+    }
   };
 
   const handleClosePreview = () => {
     setActiveIndex(null);
+    setShowError(false);
+    setShowAlpha(false);
+    setIframeSrc('');
+  };
+
+  const handleViewAlphaClick = () => {
+    setShowError(false); // Hide the error message
+    setShowAlpha(true); // Show the alpha version iframe
+    setIframeSrc(projects.find(p => p.name === 'EveSecure').alphaLink); // Set iframe source
   };
 
   return (
@@ -44,7 +69,7 @@ const ProjectPage = () => {
         ))}
       </div>
 
-      {activeIndex !== null && (
+      {(activeIndex !== null && !showError && !showAlpha) && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           {isLoading ? (
             <div className="text-white text-lg">
@@ -74,6 +99,54 @@ const ProjectPage = () => {
               </button>
             </div>
           )}
+        </div>
+      )}
+
+      {showError && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="text-white text-center p-6 bg-gray-800 rounded-lg">
+            <h2 className="text-3xl">Oops! 🏗️</h2>
+            <p className="mt-4 text-xl">EveSecure is still under construction. 🚧</p>
+            <p className="mt-2 text-gray-400 italic">Please come back later. In the meantime, maybe grab a coffee? ☕</p>
+            <button
+              onClick={handleViewAlphaClick}
+              className="mt-4 bg-blue-500 text-white rounded-full px-3 py-1"
+            >
+              View Alpha Version 🌟
+            </button>
+            <button
+              onClick={handleClosePreview}
+              className="mt-4 bg-red-500 text-white rounded-full px-3 py-1"
+            >
+              Close me before I eat your battery! ⚡
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showAlpha && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="relative w-[375px] h-[812px] bg-black rounded-[40px] overflow-hidden shadow-xl">
+            {/* iPhone Notch */}
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-black rounded-b-xl w-36 h-6 z-10"></div>
+
+            {/* iPhone Frame (with iframe preview) */}
+            <iframe
+              src={iframeSrc}
+              title="Alpha Version"
+              className="w-full h-full rounded-[30px]"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+
+            {/* Close button with humor */}
+            <button
+              onClick={handleClosePreview}
+              className="absolute top-2 right-2 bg-red-500 text-white rounded-full px-3 py-1 z-20"
+            >
+              Close me before I eat your battery! ⚡
+            </button>
+          </div>
         </div>
       )}
     </div>
